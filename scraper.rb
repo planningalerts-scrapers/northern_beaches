@@ -13,7 +13,6 @@ end
 puts "Getting data in `" + ENV['MORPH_PERIOD'] + "`, changable via MORPH_PERIOD environment"
 
 starting_url = 'https://eservices.northernbeaches.nsw.gov.au/ePlanning/live/Public/XC.Track/SearchApplication.aspx?d=' + period + '&k=LodgementDate&t=DevApp'
-comment_url = 'mailto:council@northernbeaches.nsw.gov.au?subject='
 
 def clean_whitespace(a)
   a.gsub("\r", ' ').gsub("\n", ' ').squeeze(" ").strip
@@ -44,7 +43,7 @@ def extract_date!(bits)
   date
 end
 
-def scrape_table(doc, comment_url)
+def scrape_table(doc)
 
   doc.search('.result')[1..-1].each do |tr|
     bits = tr.to_s.split("<br>")
@@ -56,7 +55,6 @@ def scrape_table(doc, comment_url)
       'address'           => addresses.first,
       'description'       => clean_whitespace(bits[2]),
       'info_url'          => (doc.uri + tr.at('a')['href']).to_s,
-      'comment_url'       => comment_url + CGI::escape("Development Application Enquiry: " + clean_whitespace(tr.at('a').inner_text)),
       'date_scraped'      => Date.today.to_s,
       'date_received'     => date_received
     }
@@ -70,4 +68,4 @@ end
 agent = Mechanize.new
 doc = agent.get(starting_url)
 
-scrape_table(doc, comment_url)
+scrape_table(doc)
