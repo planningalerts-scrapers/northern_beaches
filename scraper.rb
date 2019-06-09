@@ -1,7 +1,7 @@
 require 'scraperwiki'
 require 'mechanize'
 
-starting_url = 'https://eservices.northernbeaches.nsw.gov.au/ePlanning/live/Public/XC.Track/SearchApplication.aspx?d=thisweek&k=LodgementDate&t=DevApp'
+starting_url = 'https://eservices.northernbeaches.nsw.gov.au/ePlanning/live/Public/XC.Track/SearchApplication.aspx?d=last14days&k=LodgementDate&t=DevApp'
 
 def clean_whitespace(a)
   a.gsub("\r", ' ').gsub("\n", ' ').squeeze(" ").strip
