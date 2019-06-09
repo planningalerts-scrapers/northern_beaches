@@ -41,11 +41,11 @@ def scrape_table(doc)
 
     record = {
       'council_reference' => clean_whitespace(tr.at('a').inner_text),
-      'address'           => addresses.first,
       'description'       => clean_whitespace(bits[2]),
-      'info_url'          => (doc.uri + tr.at('a')['href']).to_s,
+      'date_received'     => date_received,
+      'address'           => addresses.first,
       'date_scraped'      => Date.today.to_s,
-      'date_received'     => date_received
+      'info_url'          => (doc.uri + tr.at('a')['href']).to_s
     }
 
     puts "Saving record " + record['council_reference'] + " - " + record['address']
