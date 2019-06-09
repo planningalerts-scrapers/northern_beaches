@@ -1,18 +1,7 @@
 require 'scraperwiki'
 require 'mechanize'
 
-case ENV['MORPH_PERIOD']
-  when 'lastmonth'
-  	period = "lastmonth"
-  when 'thismonth'
-  	period = "thismonth"
-  else
-    period = "thisweek"
-    ENV['MORPH_PERIOD'] = 'thisweek'
-end
-puts "Getting data in `" + ENV['MORPH_PERIOD'] + "`, changable via MORPH_PERIOD environment"
-
-starting_url = 'https://eservices.northernbeaches.nsw.gov.au/ePlanning/live/Public/XC.Track/SearchApplication.aspx?d=' + period + '&k=LodgementDate&t=DevApp'
+starting_url = 'https://eservices.northernbeaches.nsw.gov.au/ePlanning/live/Public/XC.Track/SearchApplication.aspx?d=thisweek&k=LodgementDate&t=DevApp'
 
 def clean_whitespace(a)
   a.gsub("\r", ' ').gsub("\n", ' ').squeeze(" ").strip
